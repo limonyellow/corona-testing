@@ -74,22 +74,3 @@ def find_all_groups_that_match(iterable: list, match: int, max_group_size: int =
     for size in range(max_group_size + 1)[1:]:
         groups_dict[size] = find_groups_that_match(iterable, match, size)
     return groups_dict
-
-
-if __name__ == '__main__':
-    ls = [64, 42, 126, 110]
-    inf = [42, 126]
-    match = 126
-    size = 5
-    x = find_groups_that_match(ls, match, size)
-    for i in x:
-        print(i)
-
-    print('--------')
-    x = combinations(ls, size)
-    for i in x:
-        print(i)
-
-    dict = find_all_groups_that_match(ls, match)
-    print(dict)
-

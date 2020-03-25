@@ -3,10 +3,6 @@ from typing import List, Dict
 
 from utils.binary import all_bins_matches_or, find_all_groups_that_match
 from utils.lists import get_intersection_between_lists
-# 2 - Todo check if the input is wrong or not x^2
-# 3 - Todo find paths:
-# Todo check small case
-# 4 - Todo check if it possible to make new object with the potential positive left (for exm - 7 subjects only).
 
 
 class CoronaTesting:
@@ -23,13 +19,20 @@ class CoronaTesting:
         # Unique binary number that represents where the subjects samplings are located.
         # For example, the sample_id '101' suggests the subjects samples located in the first and the third test kits.
         self.sample_ids = sample_ids if sample_ids else []
-        # The
+        # The number of the main sample id that uses for comparison between subjects.
         self.main_sample_id_num = main_sample_id_num
+        # Dictionary that holds all the relations between the subject id and its matching sample ids.
         self.subjects_dict = {}
+        # The subjects id of the sick subjects. Only generated for simulates test results.
         self.infected_subjects = []
+        # The results (binary numbers) that will turn out if some of the test kits in each sample id will be positive.
         self.tests_results = []
+        # Sample ids of subjects that are suspected as positive to corona.
         self.potential_positive = []
+        # Dictionary that maps group size into possible groups of positive subjects that produce the test results.
         self.potential_positive_in_groups = {}
+        # List of subjects that according to the testing are fully confirmed as positive carriers of corona.
+        self.confirmed_positive = []
 
     def show_full_stats(self):
         print(f'Full Corona Testing Stats:')
@@ -143,8 +146,8 @@ class CoronaTesting:
             infected = self.infected_subjects
         result_per_test = [0 for i in range(len(self.sample_ids))]
         for infected_subject in infected:
-            sample_id = self.subjects_dict.get(infected_subject)
-            for idx, sample_id in enumerate(sample_id):
+            sample_ids = self.subjects_dict.get(infected_subject)
+            for idx, sample_id in enumerate(sample_ids):
                 result_per_test[idx] = result_per_test[idx] | sample_id
         self.tests_results = result_per_test
         return self.tests_results
