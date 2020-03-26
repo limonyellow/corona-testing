@@ -7,7 +7,7 @@ from classes.corona_test_stat import CoronaTestStat
 NUM_OF_SUBJECTS_IN_TEST = 0b11111111
 NUM_OF_TEST_CASES = 100
 SICK_PERCENTAGE = 0.5
-TYPES_OF_SAMPLE_IDS = [CoronaTestStat.RANDOM, CoronaTestStat.RANDOM, CoronaTestStat.RANDOM, CoronaTestStat.RANDOM]
+TYPES_OF_SAMPLE_IDS = [CoronaTestStat.RANDOM, CoronaTestStat.RANDOM]
 
 
 def run_corona_test(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST, infection_percentage=SICK_PERCENTAGE):
