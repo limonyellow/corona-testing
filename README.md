@@ -21,15 +21,13 @@ We will give each one of them a binary number between 1 to 7 (this list of numbe
 7 - 111  
 
 In this case there will be 3 test kits. In each kit we will puts the sample of every subject that has '1' in the the related position.
-For an instant, the first kit will have all the samples of subjects that has '1' in the *first* position:  
-      V  
+For an instant, the first kit will have all the samples of subjects that has '1' in the *first* position:   
 1 - 00**1**     
 3 - 01**1**  
 5 - 10**1**  
 7 - 11**1**  
 
-The second kit will have all the subjects with '1' in the *second* position:  
-     V  
+The second kit will have all the subjects with '1' in the *second* position:    
 2 - 0**1**0  
 3 - 0**1**1  
 6 - 1**1**0  
