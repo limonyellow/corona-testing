@@ -4,9 +4,9 @@ from classes.corona_testing import CoronaTesting
 from classes.corona_test_stat import CoronaTestStat
 
 
-NUM_OF_SUBJECTS_IN_TEST = 0b1111111
+NUM_OF_SUBJECTS_IN_TEST = 0b11111111
 NUM_OF_TEST_CASES = 100
-SICK_PERCENTAGE = 2
+SICK_PERCENTAGE = 0.5
 TYPES_OF_SAMPLE_IDS = [CoronaTestStat.RANDOM, CoronaTestStat.RANDOM, CoronaTestStat.RANDOM, CoronaTestStat.RANDOM]
 
 
@@ -35,25 +35,34 @@ def run_corona_test(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST, infection_p
     test.show_limit_stats()
 
 
-def run_test_stat(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST,
-                  num_of_test_cases=NUM_OF_TEST_CASES,
-                  infection_percentage=SICK_PERCENTAGE,
-                  sample_id_types=None):
+def run_multi_test_stat(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST,
+                        num_of_test_cases=NUM_OF_TEST_CASES,
+                        infection_percentage=SICK_PERCENTAGE,
+                        sample_id_types=None):
     if not sample_id_types:
         sample_id_types = TYPES_OF_SAMPLE_IDS
 
+    # Creating the test Stat object.
     regular_test_stat = CoronaTestStat(num_of_subjects=num_of_subjects_in_test,
                                        num_of_test_cases=num_of_test_cases,
                                        infection_percentage=infection_percentage,
                                        sample_id_types=sample_id_types)
+    # Running all test cases.
     regular_test_stat.run_all_test_cases()
+
     regular_test_stat.show_statistics()
 
 
-def optimize_number_of_kits(max_num_of_sample_ids: int = 6,
-                            num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST,
-                            num_of_test_cases=NUM_OF_TEST_CASES,
-                            infection_percentage=SICK_PERCENTAGE):
+def run_multi_with_optimize_number_of_kits(max_num_of_sample_ids: int = 6,
+                                           num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST,
+                                           num_of_test_cases=NUM_OF_TEST_CASES,
+                                           infection_percentage=SICK_PERCENTAGE):
+    """
+    Running multiple test cases and changing the number of random sample ids (adding more test kits to every run)
+    The final results will show the optimal number of sample ids / kits
+    before adding more kits won't narrow the number of potential positive
+    more then just use them to check a single subject.
+    """
     kits_in_sample_id = bin_len(NUM_OF_SUBJECTS_IN_TEST)
     kits_to_potentials = []
     all_cases = []
@@ -87,7 +96,6 @@ def optimize_number_of_kits(max_num_of_sample_ids: int = 6,
 
 
 if __name__ == '__main__':
-
     # run_corona_test()
-    # run_test_stat()
-    optimize_number_of_kits()
+    run_multi_test_stat()
+    # run_multi_with_optimize_number_of_kits()
