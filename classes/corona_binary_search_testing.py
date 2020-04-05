@@ -1,3 +1,4 @@
+import math
 import random
 from typing import List, Dict
 
@@ -5,7 +6,7 @@ from utils.lists import get_intersection_between_lists
 from utils.binary import all_bins_matches_or, find_all_groups_that_match, opposite_bin
 
 
-class CoronaTesting:
+class CoronaBinarySearchTesting:
 
     COVID19_POSITIVE = 1
     COVID19_NEGATIVE = 0
@@ -34,6 +35,30 @@ class CoronaTesting:
         self.potential_positive_in_groups = {}
         # List of subjects that according to the testing are fully confirmed as positive carriers of corona.
         self.confirmed_positive = []
+
+        self._num_of_subjects_in_group = 64
+
+    def get_max_num_of_subjects_in_group(self):
+        return self._num_of_subjects_in_group
+
+    def get_num_of_groups(self):
+        max_in_group = self.get_max_num_of_subjects_in_group()
+        if not max_in_group:
+            return 2
+        num_of_groups = math.ceil(self.num_of_subjects / max_in_group)
+        return num_of_groups if num_of_groups > 1 else 2
+
+    def get_num_of_subjects_in_group(self):
+        return math.ceil(self.num_of_subjects / self.get_num_of_groups())
+
+    def cut_into_groups(self):
+        pass
+
+    def check_groups(self):
+        pass
+
+    def merge_positive_groups(self):
+        pass
 
     def show_full_stats(self):
         print(f'Full Corona Testing Stats:')
