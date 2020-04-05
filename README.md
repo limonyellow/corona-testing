@@ -88,4 +88,4 @@ There are 3 different ways of numbering:
 Example for a list:  
 ```TYPES_OF_SAMPLE_IDS =[CoronaTestStat.RANDOM, CoronaTestStat.DEC, CoronaTestStat.RANDOM, CoronaTestStat.RANDOM]```
 
-For more complicated applications, just look at the documentations, it ain't rocket science:)
+For more complicated applications, look at the documentations.

@@ -2,22 +2,31 @@ from typing import List, Dict
 from itertools import combinations
 
 
-def dec_to_bin(dec_num: int) -> str:
-    """
-    Converts a number to its binary form as string.
-    @param dec_num: Decimal number.
-    @return: Binary number as string.
-    """
-    return bin(dec_num)[2:]
-
-
 def bin_len(dec_num: int) -> int:
     """
     Calculates the number of digits in the binary form of a number.
     @param dec_num: Decimal number.
     @return: Length of its binary form.
     """
-    return len(dec_to_bin(dec_num))
+    return len(format(dec_num, 'b'))
+
+
+def opposite_bin(dec_num: int, length: int = 0) -> int:
+    """
+    Turns a decimal number to into a new decimal number
+    that in its binary form all the '0's are '1' and the '1's are '0's.
+    @param dec_num: Decimal number.
+    @param length: The number of digits in the binary form, adding leading '0's if needed.
+    @return: The Decimal number that its binary form is with opposite digits.
+    """
+    bin_num = format(dec_num, f'0{length}b')
+    opposite_bin_num = ''
+    for digit in bin_num:
+        if digit == '1':
+            opposite_bin_num += '0'
+        else:
+            opposite_bin_num += '1'
+    return int(opposite_bin_num, 2)
 
 
 def all_bins_matches_or(num: int, no_zero: bool = True) -> List[int]:

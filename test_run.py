@@ -1,13 +1,13 @@
 from utils.binary import bin_len
-
 from classes.corona_testing import CoronaTesting
 from classes.corona_test_stat import CoronaTestStat
 
 
-NUM_OF_SUBJECTS_IN_TEST = 0b11111111
+NUM_OF_SUBJECTS_IN_TEST = 0b1111
 NUM_OF_TEST_CASES = 100
 SICK_PERCENTAGE = 0.5
 TYPES_OF_SAMPLE_IDS = [CoronaTestStat.RANDOM, CoronaTestStat.RANDOM]
+# TYPES_OF_SAMPLE_IDS = [CoronaTestStat.ASC, CoronaTestStat.DEC]
 
 
 def run_corona_test(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST, infection_percentage=SICK_PERCENTAGE):
@@ -16,8 +16,9 @@ def run_corona_test(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST, infection_p
     test.generate_subjects_by_num()
     # Adding multiple test ids to each subject.
     test.add_num_sample_id()
-    test.add_num_sample_id(reverse=True)
-    test.add_random_sample_id()
+    test.add_opposite_sample_id()
+    # test.add_num_sample_id(reverse=True)
+    # test.add_random_sample_id()
     # Create the dictionary with all the test ids of each subject.
     test.generate_subjects_dict()
 
@@ -33,6 +34,8 @@ def run_corona_test(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST, infection_p
     # Show the statistics of the test.
     test.show_full_stats()
     test.show_limit_stats()
+    print(test.get_num_of_test_kits())
+    print(test.get_num_of_samples_taken())
 
 
 def run_multi_test_stat(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST,
@@ -96,6 +99,6 @@ def run_multi_with_optimize_number_of_kits(max_num_of_sample_ids: int = 6,
 
 
 if __name__ == '__main__':
-    # run_corona_test()
-    run_multi_test_stat()
+    run_corona_test()
+    # run_multi_test_stat()
     # run_multi_with_optimize_number_of_kits()

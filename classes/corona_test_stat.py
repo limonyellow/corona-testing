@@ -10,6 +10,7 @@ class CoronaTestStat:
     ASC = 0
     DEC = 1
     RANDOM = 2
+    OPPOSITE = 3
 
     def __init__(self, num_of_subjects: int = 0b11111111, num_of_test_cases: int = 1000,
                  infection_percentage: float = 2, sample_id_types: List = None):
@@ -26,6 +27,7 @@ class CoronaTestStat:
         self.all_results = []
         self.avg_infected = 0
         self.avg_potential_positive = 0
+        self.avg_num_of_groups = {}
 
     def run_all_test_cases(self):
         """
@@ -47,6 +49,8 @@ class CoronaTestStat:
                     test.add_num_sample_id(reverse=True)
                 if sample_id_type == self.RANDOM:
                     test.add_random_sample_id()
+                if sample_id_type == self.OPPOSITE:
+                    test.add_opposite_sample_id()
             # Create dictionary with all the sample ids of each subject.
             test.generate_subjects_dict()
             # Generates sick subject randomly.
@@ -56,7 +60,7 @@ class CoronaTestStat:
             test.generate_test_result()
             test.find_potential_positive()
             # Narrow down the possible options for groups of subjects that matches the results.
-            # test.find_groups_that_match_result()
+            test.find_groups_that_match_result(max_size_of_group=2)
 
             # Updating the stats
             self.all_corona_test_cases.append(test)
@@ -78,6 +82,7 @@ class CoronaTestStat:
         self.show_sample_id_types()
         print(f'Average real Covid-19 positive subjects in case: {self.avg_infected}')
         print(f'Average potential Covid-19 positive subjects found by the algorithm: {self.avg_potential_positive}')
+
         print(f'---')
 
     def show_sample_id_types(self):
