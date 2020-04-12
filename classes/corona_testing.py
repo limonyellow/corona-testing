@@ -30,6 +30,9 @@ class CoronaTesting:
         self.tests_results = []
         # Sample ids of subjects that are suspected as positive to corona.
         self.potential_positive = []
+        # Lists af all numbers of subjects that are suspected as positive.
+        # Each List belongs to different sample id (all numbers are normalized to the main sample id numbering.
+        self.normalize_potential_positive = []
         # Dictionary that maps group size into possible groups of positive subjects that produce the test results.
         self.potential_positive_in_groups = {}
         # List of subjects that according to the testing are fully confirmed as positive carriers of corona.
@@ -47,6 +50,8 @@ class CoronaTesting:
 
     def _show_stats(self):
         print(f'-Num_of_subjects: {self.num_of_subjects}')
+        self.show_num_of_kits()
+        self.show_num_of_samples()
         print(f'-Infected_subjects: {len(self.infected_subjects)}')
         self.show_infected()
         print(f'-Tests_results:')
@@ -62,6 +67,12 @@ class CoronaTesting:
         print(f'-Number of potential_positive: {len(self.potential_positive)}')
         print(f'-Potential_positive: {[f"{num}--{bin(num)}" for num in self.potential_positive ]}')
         print(f'-Potential positive in groups: {self.potential_positive_in_groups}')
+
+    def show_num_of_kits(self):
+        print(f'-Number of test kits used: {self.get_num_of_test_kits()}')
+
+    def show_num_of_samples(self):
+        print(f'-Number of samples taken from all subjects: {self.get_num_of_samples_taken()}')
 
     def get_num_of_digits_in_num_of_subjects(self):
         """
@@ -209,11 +220,12 @@ class CoronaTesting:
         all_potential_positive = [all_bins_matches_or(result) for result in self.tests_results]
         # Normalize all numbers in each different sample id to one main sample id.
         # This being made in order to compare between subjects that came up in different sample ids.
-        normalize_potential_positive = self._normalize_potential_positive(all_potential_positive,
-                                                                          self.main_sample_id_num)
+        self.normalize_potential_positive = self._normalize_potential_positive(all_potential_positive,
+                                                                               self.main_sample_id_num)
+
         # After each subject has only a single sample id to recognize it,
         # only the subjects that appear in every list (each list from different sample id), are potentially sick.
-        self.potential_positive = get_intersection_between_lists(normalize_potential_positive)
+        self.potential_positive = get_intersection_between_lists(self.normalize_potential_positive)
         return self.potential_positive
 
     def _normalize_potential_positive(self, all_potential_positive: List[List[int]],
