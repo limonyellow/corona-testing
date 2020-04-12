@@ -94,4 +94,6 @@ class CoronaTestStat:
                 sample_id_types_names.append('DEC')
             if sample_id_type == self.RANDOM:
                 sample_id_types_names.append('RANDOM')
+            if sample_id_type == self.OPPOSITE:
+                sample_id_types_names.append('OPPOSITE')
         print(f'Methods of creating sample ids: {sample_id_types_names}')

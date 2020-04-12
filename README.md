@@ -84,8 +84,9 @@ The number of kits that will be added to the test case depends on the number of 
 There are 3 different ways of numbering:  
 `CoronaTestStat.ASC` = 0  
 `CoronaTestStat.DEC` = 1  
-`CoronaTestStat.RANDOM` = 2    
+`CoronaTestStat.RANDOM` = 2
+`CoronaTestStat.OPPOSITE` = 3    
 Example for a list:  
 ```TYPES_OF_SAMPLE_IDS =[CoronaTestStat.RANDOM, CoronaTestStat.DEC, CoronaTestStat.RANDOM, CoronaTestStat.RANDOM]```
 
-For more complicated applications, look at the documentations.
+For more complicated applications, see documentations within the classes.

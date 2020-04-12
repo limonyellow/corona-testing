@@ -7,7 +7,7 @@ def get_intersection_between_lists(lists: List[List]) -> List:
     @param lists: List of lists.
     @return: List with the intersection elements.
     """
-    intersection_list = lists.pop()
+    intersection_list = lists[0]
     for ls in lists:
         intersection_list = list(set(intersection_list) & set(ls))
     return intersection_list

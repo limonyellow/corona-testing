@@ -3,10 +3,10 @@ from classes.corona_testing import CoronaTesting
 from classes.corona_test_stat import CoronaTestStat
 
 
-NUM_OF_SUBJECTS_IN_TEST = 0b1111
+NUM_OF_SUBJECTS_IN_TEST = 0b11111110
 NUM_OF_TEST_CASES = 100
 SICK_PERCENTAGE = 0.5
-TYPES_OF_SAMPLE_IDS = [CoronaTestStat.RANDOM, CoronaTestStat.RANDOM]
+TYPES_OF_SAMPLE_IDS = [CoronaTestStat.ASC, CoronaTestStat.OPPOSITE, CoronaTestStat.RANDOM]
 # TYPES_OF_SAMPLE_IDS = [CoronaTestStat.ASC, CoronaTestStat.DEC]
 
 
@@ -24,18 +24,21 @@ def run_corona_test(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST, infection_p
 
     # Generates sick subject randomly.
     test.generate_infected(infection_percentage)
+    # It is possible to chose specific positive subjects:
+    # test.infected_subjects = ['subject#2', 'subject#11']
+
     # Calculates the result of the testing on all subjects,
     # having the generated infected subjects among them to make some of the test positive.
     test.generate_test_result()
     test.find_potential_positive()
 
-    test.find_groups_that_match_result(max_size_of_group=None)
+    # Finding groups in different sizes of subject's numbers that together their bitwise 'or' outcome
+    # matches the test result.
+    # test.find_groups_that_match_result(max_size_of_group=3)
 
     # Show the statistics of the test.
     test.show_full_stats()
     test.show_limit_stats()
-    print(test.get_num_of_test_kits())
-    print(test.get_num_of_samples_taken())
 
 
 def run_multi_test_stat(num_of_subjects_in_test=NUM_OF_SUBJECTS_IN_TEST,
@@ -99,6 +102,6 @@ def run_multi_with_optimize_number_of_kits(max_num_of_sample_ids: int = 6,
 
 
 if __name__ == '__main__':
-    run_corona_test()
-    # run_multi_test_stat()
+    # run_corona_test()
+    run_multi_test_stat()
     # run_multi_with_optimize_number_of_kits()
